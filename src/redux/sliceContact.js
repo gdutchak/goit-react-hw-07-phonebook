@@ -18,7 +18,6 @@ export const contactSlice = createSlice({
         }
     },
     extraReducers: {
-        tagTypes: ['Contacts'],
         [fetchContacts.pending]: (state) => {
             state.contacts.isLoading = true
         },
@@ -26,7 +25,6 @@ export const contactSlice = createSlice({
             state.contacts.items = action.payload
             state.contacts.isLoading = false
         },
-        providesTags: ['Contacts'],
         [fetchContacts.error]: (state, action) => {
             state.contacts.isLoading = false
             state.contacts.error = action.payload
@@ -36,7 +34,7 @@ export const contactSlice = createSlice({
         },
         [addContact.fulfilled]: (state, action) => {
             state.contacts.isLoading = false
-            console.log(action.payload);
+            state.contacts.items.push(action.meta.arg)
         },
         [addContact.error]: (state, action) => {
             state.contacts.isLoading = false
@@ -45,13 +43,13 @@ export const contactSlice = createSlice({
         [deleteContact.pending]: (state) => {
             state.contacts.isLoading = true
         },
-        [deleteContact.fulfilled]: (state) => {
+        [deleteContact.fulfilled]: (state, action) => {
             state.contacts.isLoading = false
+            state.contacts.items = state.contacts.items.filter(({ id }) => id !== action.meta.arg)
         },
         [deleteContact.error]: (state, action) => {
             state.contacts.isLoading = false
             state.contacts.error = action.payload
         },
-        invalidatesTags: [{ type: 'Contacts', id: 'LIST' }],
     }
 })

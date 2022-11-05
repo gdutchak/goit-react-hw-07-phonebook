@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input, Label, Button } from './FormContact.styled';
 import { addContact } from 'redux/operationsContacts';
@@ -17,6 +18,7 @@ export function FormContacts() {
             return
         }
         let data = {
+            id: nanoid(),
             name,
             phone: number,
         }

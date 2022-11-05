@@ -21,7 +21,7 @@ export const ListContacts = () => {
         {loading && <ClipLoader />}
         {contact && contact.map(({ name, phone, id }) =>
             <Item key={id}>{name}: {phone}
-                <ButtonList type='ButtonList' onClick={() => dispatch(deleteContact(id))} disabled={loading}>Delete</ButtonList>
+                <ButtonList type='ButtonList' onClick={() => dispatch(deleteContact(id))}>Delete</ButtonList>
             </Item >)}
     </ul >)
 }

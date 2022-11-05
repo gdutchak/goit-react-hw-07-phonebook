@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-// import ClipLoader from "react-spinners/ClipLoader";
-
+const headers = new Headers({
+    "Content-Type": "application/json",
+    "X-Custom-Header": "custom value",
+});
 export const fetchContacts = createAsyncThunk(
     'contacts/fetchAll',
     async () => {
@@ -17,12 +19,13 @@ export const addContact = createAsyncThunk(
     'contacts/addContact',
     async (contact) => {
         try {
-            const response = await fetch('https://6364f0387b209ece0f52b872.mockapi.io/contacts', {
+            await fetch('https://6364f0387b209ece0f52b872.mockapi.io/contacts', {
+                headers,
                 method: 'POST',
                 url: '/',
                 body: JSON.stringify(contact),
             })
-            return response
+
         } catch (error) {
             return error
         }
