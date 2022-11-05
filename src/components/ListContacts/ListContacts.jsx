@@ -3,6 +3,7 @@ import { Item, ButtonList } from './ListContacts.styled';
 import { fetchContacts, deleteContact } from 'redux/operationsContacts';
 import { useEffect } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 export const ListContacts = () => {
     const dispatch = useDispatch()
@@ -21,7 +22,13 @@ export const ListContacts = () => {
         {loading && <ClipLoader />}
         {contact && contact.map(({ name, phone, id }) =>
             <Item key={id}>{name}: {phone}
-                <ButtonList type='ButtonList' onClick={() => dispatch(deleteContact(id))}>Delete</ButtonList>
+                <ButtonList type='ButtonList' onClick={() => {
+                    dispatch(deleteContact(id))
+                    Loading.standard('adding...', {
+                        svgSize: '16px',
+                    })
+                    Loading.remove()
+                }} >Delete</ButtonList>
             </Item >)}
     </ul >)
 }

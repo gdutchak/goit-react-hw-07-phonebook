@@ -3,6 +3,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input, Label, Button } from './FormContact.styled';
 import { addContact } from 'redux/operationsContacts';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 export function FormContacts() {
     const dispatch = useDispatch()
@@ -23,8 +24,12 @@ export function FormContacts() {
             phone: number,
         }
         dispatch(addContact(data))
+        Loading.standard('adding...', {
+            svgSize: '16px',
+        })
         setName('')
         setNumber('')
+        Loading.remove();
     }
 
     return (
