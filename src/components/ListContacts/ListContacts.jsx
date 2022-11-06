@@ -3,7 +3,7 @@ import { Item, ButtonList } from './ListContacts.styled';
 import { fetchContacts, deleteContact } from 'redux/operationsContacts';
 import { useEffect } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const ListContacts = () => {
     const dispatch = useDispatch()
@@ -24,10 +24,7 @@ export const ListContacts = () => {
             <Item key={id}>{name}: {phone}
                 <ButtonList type='ButtonList' onClick={() => {
                     dispatch(deleteContact(id))
-                    Loading.standard('adding...', {
-                        svgSize: '16px',
-                    })
-                    Loading.remove()
+                    Notify.warning('This number has deleted from contacts!');
                 }} >Delete</ButtonList>
             </Item >)}
     </ul >)
